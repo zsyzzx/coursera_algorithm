@@ -23,14 +23,14 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Item removeFirst(Item item) {
-        Item temp;
 
-        return temp;
+
+        return null;
     }
     public Item removeLast(Item item) {
-        Item temp;
 
-        return temp;
+
+        return null;
     }
 
     @Override
