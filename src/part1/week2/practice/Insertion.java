@@ -81,6 +81,7 @@ public class Insertion {
 
     /*
     * optimize */
+    // TODO: 2017/1/23  添加优化代码，二分查找，优化插入等，参考《算法》书里的示例代码
 
 
     /*
