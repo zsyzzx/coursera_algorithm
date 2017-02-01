@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
  * 可双向移除
  * 遍历从队列first开始到最后
  */
+// TODO: 2017/1/28 评分82  需要优化
 public class Deque<Item> implements Iterable<Item> {
     private int count;   // 队列元素数量
     private Node<Item> first;
