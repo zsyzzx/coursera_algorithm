@@ -15,6 +15,8 @@ import java.util.Arrays;
  * 将所有点的斜率排序，（大小相近的比较靠近）
  * 找到长度不小于4的线段
  */
+
+// TODO: 2017/2/1 还有immutable 还没有解决。 尝试其他两种答案
 public class FastCollinearPoints {
     private LineSegment[] lineSegments;
 

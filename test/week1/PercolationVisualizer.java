@@ -1,4 +1,6 @@
-package week1; /******************************************************************************
+//非原生代码
+package week1;
+/******************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
  *  Dependencies: Percolation.java
@@ -17,9 +19,10 @@ package week1; /****************************************************************
  ******************************************************************************/
 
 import java.awt.Font;
-
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
+
+//非原生代码
 import part1.week1.Percolation;
 
 public class PercolationVisualizer {

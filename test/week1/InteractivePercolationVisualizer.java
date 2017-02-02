@@ -1,3 +1,4 @@
+//非原生代码
 package week1;
 /******************************************************************************
  *  Compilation:  javac InteractivePercolationVisualizer.java
@@ -14,6 +15,8 @@ package week1;
 
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
+
+//非原生代码
 import part1.week1.Percolation;
 
 public class InteractivePercolationVisualizer {
