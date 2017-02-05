@@ -4,6 +4,9 @@ import edu.princeton.cs.algs4.*;
 
 /**
  * Created by seven on 2017/2/2.
+ * KdTree 用来存储(0,1)区间的点，并实现：rangeSearch(范围搜索)，nearest(最近)方法，参照RB BST
+ * 类似空间存储: 把一个平面根据需要划分成上下左右四部分，按照位置把点存进树中
+ * 这里实现的是2维树，2dTree，高维度的树怎么实现？
  */
 public class KdTree {
     private static final boolean VERTICAL = true;

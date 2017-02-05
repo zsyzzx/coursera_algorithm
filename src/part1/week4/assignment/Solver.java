@@ -7,7 +7,9 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * Created by seven on 2017/2/1.
- * 8puzzle的解题方法：
+ * 8puzzle的解题方法：找到最佳的走法，即找到最接近目标的走法
+ * 评判标准：当前位置与目标位置的差距：manhattan 或 hamming  ，这里实现的是manhattan方法
+ *
  */
 public class Solver {
     //    private Board board;
