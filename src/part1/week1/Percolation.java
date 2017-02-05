@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
  */
 public class Percolation {
     private int n;
-	private int numberofopenSites;
+    private int numberofopenSites;
     private boolean[][] openState;
     private WeightedQuickUnionUF wuf;
 
@@ -138,7 +138,6 @@ public class Percolation {
     public boolean percolates() {
         return wuf.connected(0, n * n + 1);
     }
-
 
 
 }

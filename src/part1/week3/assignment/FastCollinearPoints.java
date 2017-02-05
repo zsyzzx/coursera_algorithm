@@ -5,7 +5,6 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 import week3.LineSegment;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -78,14 +77,6 @@ public class FastCollinearPoints {
 
     }
 
-    public int numberOfSegments() {
-        return lineSegments.length;
-    }
-
-    public LineSegment[] segments() {
-        return lineSegments;
-    }
-
     public static void main(String[] args) {
         // read the n points from a file
         In in = new In(args[0]);
@@ -113,5 +104,13 @@ public class FastCollinearPoints {
             segment.draw();
         }
         StdDraw.show();
+    }
+
+    public int numberOfSegments() {
+        return lineSegments.length;
+    }
+
+    public LineSegment[] segments() {
+        return lineSegments;
     }
 }

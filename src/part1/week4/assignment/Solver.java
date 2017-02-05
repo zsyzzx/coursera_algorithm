@@ -5,8 +5,6 @@ import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
-import java.util.Comparator;
-
 /**
  * Created by seven on 2017/2/1.
  * 8puzzle的解题方法：
@@ -16,29 +14,6 @@ public class Solver {
     private MinPQ<SearchNode> pq, twin_pq;
     private int movesToGoals = 0;
 
-
-    /*SearchNode,插入优先队列里的，*/
-    private class SearchNode implements Comparable<SearchNode> {
-        private Board board;
-        private int moves;
-        private SearchNode prev;
-
-        private SearchNode(Board board, int moves, SearchNode prev) {
-            this.board = board;
-            this.moves = moves;
-            this.prev = prev;
-        }
-
-        //        实现manhattan优先级比较，
-//        可以使用hamming优先级比较：实现一个Comparator类
-        @Override
-        public int compareTo(SearchNode that) {
-            int manhattan_priority1 = this.moves + this.board.manhattan();
-            int manhattan_priority2 = that.moves + that.board.manhattan();
-            return manhattan_priority1 - manhattan_priority2;
-
-        }
-    }
 
     public Solver(Board initial) {
 //        this.board = initial;
@@ -82,6 +57,28 @@ public class Solver {
 
     }
 
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        int n = in.readInt();
+        int[][] blocks = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                blocks[i][j] = in.readInt();
+        Board initial = new Board(blocks);
+
+        // solve the puzzle
+        Solver solver = new Solver(initial);
+
+        // print solution to standard output
+        if (!solver.isSolvable())
+            StdOut.println("No solution possible");
+        else {
+            StdOut.println("Minimum number of moves = " + solver.moves());
+            for (Board board : solver.solution())
+                StdOut.println(board);
+        }
+    }
+
     //    返回求解的最小步数
     public int moves() {
         return movesToGoals;
@@ -103,25 +100,26 @@ public class Solver {
         return solution;
     }
 
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        int n = in.readInt();
-        int[][] blocks = new int[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                blocks[i][j] = in.readInt();
-        Board initial = new Board(blocks);
+    /*SearchNode,插入优先队列里的，*/
+    private class SearchNode implements Comparable<SearchNode> {
+        private Board board;
+        private int moves;
+        private SearchNode prev;
 
-        // solve the puzzle
-        Solver solver = new Solver(initial);
+        private SearchNode(Board board, int moves, SearchNode prev) {
+            this.board = board;
+            this.moves = moves;
+            this.prev = prev;
+        }
 
-        // print solution to standard output
-        if (!solver.isSolvable())
-            StdOut.println("No solution possible");
-        else {
-            StdOut.println("Minimum number of moves = " + solver.moves());
-            for (Board board : solver.solution())
-                StdOut.println(board);
+        //        实现manhattan优先级比较，
+//        可以使用hamming优先级比较：实现一个Comparator类
+        @Override
+        public int compareTo(SearchNode that) {
+            int manhattan_priority1 = this.moves + this.board.manhattan();
+            int manhattan_priority2 = that.moves + that.board.manhattan();
+            return manhattan_priority1 - manhattan_priority2;
+
         }
     }
 }

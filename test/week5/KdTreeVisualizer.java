@@ -16,7 +16,7 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
 //非原生代码
- import part1.week5.assignment.KdTree;
+// import part1.week5.assignment.KdTree;
 
 public class KdTreeVisualizer {
 

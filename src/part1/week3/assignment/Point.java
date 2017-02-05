@@ -24,6 +24,13 @@ public class Point implements Comparable<Point> {
     }
 
     /**
+     * Unit tests the Point data type.
+     */
+    public static void main(String[] args) {
+        /* YOUR CODE HERE */
+    }
+
+    /**
      * Draws this point to standard draw.
      */
     public void draw() {
@@ -58,15 +65,14 @@ public class Point implements Comparable<Point> {
         double dx, dy;
         dx = that.x - this.x;
         dy = that.y - this.y;
-        if (dx == 0 ) {
-            if (dy != 0 )return Double.POSITIVE_INFINITY;  //vertical
+        if (dx == 0) {
+            if (dy != 0) return Double.POSITIVE_INFINITY;  //vertical
             else return Double.NEGATIVE_INFINITY;  // equal
-        } else if (dy == 0){
-            return dy/ 1.0;   //horizontal positive zero
+        } else if (dy == 0) {
+            return dy / 1.0;   //horizontal positive zero
         } else {
-            return dy/dx;
+            return dy / dx;
         }
-
 
 
     }
@@ -88,18 +94,6 @@ public class Point implements Comparable<Point> {
         else if ((this.y < that.y) || (this.y == that.y && this.x < that.x)) return -1;   // this < that
         else return 1;          // this > that   this.y > that.y || this.y == that.y && this.x > that.x
 
-    }
-
-    private class SlopeOrderComparator implements Comparator<Point>{
-
-        @Override
-        public int compare(Point point1, Point point2) {
-           double slope1 = slopeTo(point1);
-           double slope2 = slopeTo(point2);
-            if (slope1 == slope2) return 0;
-            if (slope1 < slope2) return -1;
-            else return 1;
-        }
     }
 
     /**
@@ -124,11 +118,16 @@ public class Point implements Comparable<Point> {
         return "(" + x + ", " + y + ")";
     }
 
-    /**
-     * Unit tests the Point data type.
-     */
-    public static void main(String[] args) {
-        /* YOUR CODE HERE */
+    private class SlopeOrderComparator implements Comparator<Point> {
+
+        @Override
+        public int compare(Point point1, Point point2) {
+            double slope1 = slopeTo(point1);
+            double slope2 = slopeTo(point2);
+            if (slope1 == slope2) return 0;
+            if (slope1 < slope2) return -1;
+            else return 1;
+        }
     }
 
 
