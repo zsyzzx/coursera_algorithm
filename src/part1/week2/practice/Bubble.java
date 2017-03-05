@@ -6,16 +6,66 @@ import java.util.Comparator;
 
 /**
  * Created by seven on 2017/1/23.
+ * 冒泡排序: 就是两两交换，最后得到一个有序的序列,大的往后移，一次循环的结果就是: 最大的在最右边
+ * 这里是升序排序
  */
 public class Bubble {
     private Bubble() {
     }
 
     public static void sort(Comparable[] a) {
+        int n = a.length;
+        /*
+        * 在未排序的空间，排序，
+        * 已经排序的空间不变，*/
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n - (i + 1); j++) {
+//                if (less(a[j + 1], a[j])) {   // left(a[i])> right(a[i+1])
+//                    exchange(a, j, j + 1);
+//                }
+//            }
+//        }
+
+//        仿照visualalg算法
+        /*
+        * 出现无序状况则交换，*/
+        boolean swapped = false;
+        int numOfSorted = 0;
+        do {
+            swapped = false;
+            for (int i = 0; i <= n-numOfSorted; i++) {
+                if (less(a[i+1],a[i])){
+                    exchange(a,i,i+1);
+                    swapped = true;
+                }
+            }
+            numOfSorted++;
+        }while (swapped);
+        assert isSorted(a);
 
     }
 
     public static void sort(Object[] a, Comparator comparator) {
+        int n = a.length;
+//        for (int i = 0; i < n - 1; i++) {
+//            for (int j = 0; j < n - (i + 1); j++) {
+//                if (less(comparator, a[j + 1], a[j])) {   // left(a[i])> right(a[i+1])
+//                    exchange(a, j, j + 1);
+//                }
+//
+//            }
+//        }
+        boolean swapped = false;  // 标记是否已经排好序了
+        do {
+            swapped = false;
+            for (int i = 0; i < n-1; i++) {
+                if (less(comparator,a[i+1],a[i])){
+                    exchange(a,i,i+1);
+                    swapped = true;
+                }
+            }
+        }while (swapped);
+        assert isSorted(a, comparator);
     }
 
     /*

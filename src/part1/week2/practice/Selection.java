@@ -98,10 +98,16 @@ public final class Selection {
         String[] s = {"ab", "gey", "China", "USA", "Guandong", "Jiangsu", "Shenzhen", "hello"};
         Integer[] a = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
 //        String a[] = StdIn.readAllStrings();
-        Selection.sort(a);
+//        Selection.sort(a);
+//        Selection.show(a);
         show(a);
-        Selection.sort(s);
+        Bubble.sort(a);
+        show(a);
+//        Selection.sort(s);
         show(s);
+        Bubble.sort(s);
+        show(s);
+
     }
 
 

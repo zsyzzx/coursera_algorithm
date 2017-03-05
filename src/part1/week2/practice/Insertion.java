@@ -14,6 +14,8 @@ public class Insertion {
 
     private Insertion() {
     }
+    
+    //// TODO: 2017/3/5 优化的插入排序算法，减少比较次数 ：insertsortX();
 
     public static void sort(Comparable[] a) {
         int n = a.length;
@@ -137,4 +139,6 @@ public class Insertion {
         a[i] = a[j];
         a[j] = swap;
     }
+
+
 }
