@@ -18,7 +18,7 @@ public class Bubble {
         /*
         * 在未排序的空间，排序，
         * 已经排序的空间不变，*/
-//        for (int i = 0; i < n; i++) {
+//        for (int i = 0; i < n-1; i++) {
 //            for (int j = 0; j < n - (i + 1); j++) {
 //                if (less(a[j + 1], a[j])) {   // left(a[i])> right(a[i+1])
 //                    exchange(a, j, j + 1);
@@ -26,24 +26,39 @@ public class Bubble {
 //            }
 //        }
 
+//        boolean swapped ;
+//        for (int i = 0; i < n-1; i++) {
+//            swapped = false;
+//            for (int j = 0; j < n - (i + 1); j++) {
+//                if (less(a[j + 1], a[j])) {   // left(a[i])> right(a[i+1])
+//                    exchange(a, j, j + 1);
+//                    swapped = true;
+//                }
+//            }
+//            if(!swapped) break;
+//        }
+
 //        仿照visualalg算法
         /*
-        * 出现无序状况则交换，*/
-        boolean swapped = false;
-        int numOfSorted = 0;
+        * 出现无序状况则交换，
+        * 若已经排完序，则停止排序*/
+        boolean swapped ;  //标志位，如果这个循环中,元素间没有发生交换则代表输入是有序的
+        int numOfSorted = 0;  //记录已经排好序的元素数量
         do {
             swapped = false;
-            for (int i = 0; i <= n-numOfSorted; i++) {
-                if (less(a[i+1],a[i])){
-                    exchange(a,i,i+1);
+            for (int i = 0; i < n - numOfSorted-1; i++) {
+                if (less(a[i + 1], a[i])) {
+                    exchange(a, i, i + 1);
                     swapped = true;
                 }
+                show(a);
             }
             numOfSorted++;
-        }while (swapped);
+        } while (swapped);
         assert isSorted(a);
 
     }
+
 
     public static void sort(Object[] a, Comparator comparator) {
         int n = a.length;
@@ -56,15 +71,16 @@ public class Bubble {
 //            }
 //        }
         boolean swapped = false;  // 标记是否已经排好序了
+        int numOfSorted = 0;
         do {
             swapped = false;
-            for (int i = 0; i < n-1; i++) {
-                if (less(comparator,a[i+1],a[i])){
-                    exchange(a,i,i+1);
+            for (int i = 0; i < n - numOfSorted-1; i++) {
+                if (less(comparator, a[i + 1], a[i])) {
+                    exchange(a, i, i + 1);
                     swapped = true;
                 }
             }
-        }while (swapped);
+        } while (swapped);
         assert isSorted(a, comparator);
     }
 
@@ -94,7 +110,7 @@ public class Bubble {
 
     private static void show(Comparable[] a) {
         for (int i = 0; i < a.length; i++) {
-            StdOut.print(a[i]);
+            StdOut.print(a[i]+" ");
         }
     }
 
