@@ -16,15 +16,15 @@ public final class Selection {
 
     public static void sort(Comparable[] a) {
         int n = a.length;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //将要交换的位置
             int min = i;  // 假设当前位置为最小
             for (int j = i + 1; j < n; j++) {
                 if (less(a[j], a[min])) {
                     min = j;    // 如果找到更小的则更换下标
                 }
             }
-            exchange(a, i, min);
             assert isSorted(a, 0, i);   // 判断a在i之前是否已经排好序
+            exchange(a, i, min); //交换最小值
         }
         assert isSorted(a);         // 断言a是否已经排好序
     }
@@ -93,22 +93,5 @@ public final class Selection {
         a[i] = a[j];
         a[j] = swap;
     }
-
-    public static void main(String[] args) {
-        String[] s = {"ab", "gey", "China", "USA", "Guandong", "Jiangsu", "Shenzhen", "hello"};
-        Integer[] a = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
-//        String a[] = StdIn.readAllStrings();
-//        Selection.sort(a);
-//        Selection.show(a);
-        show(a);
-        Bubble.sort(a);
-        show(a);
-//        Selection.sort(s);
-        show(s);
-        Bubble.sort(s);
-        show(s);
-
-    }
-
 
 }
