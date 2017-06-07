@@ -74,13 +74,11 @@ public class Insertion {
         }
     }
 
-    // TODO: 2017/3/5 优化的插入排序算法，减少比较次数 ：insertsortX();
-
     /**
      * 优化指南：较大的元素右移一位只需访问一次数组
      * 先找出最小元素并放在数组最左边(哨兵，去掉内循环的判断条件 j>0) 规避边界测试
      *
-     * @param a
+     * @param a 传入的数组
      */
     public static void InsertionX(Comparable[] a) {
         int n = a.length;
@@ -100,8 +98,7 @@ public class Insertion {
             }
         }
         if (exchanges == 0) return;  // 没有发生交换则代表数组有序
-//        show(a);
-//        System.out.println();
+
 
 //        先为准备插入的元素准备好位置，实现了较大的元素右移一位只需访问一次数组
         for (int i = 2; i < n; i++) {
@@ -130,11 +127,31 @@ public class Insertion {
         }
     }
 
-    /*
-    * optimize */
-    // TODO: 2017/1/23  添加优化代码，二分查找，优化插入等，参考《算法》书里的示例代码
 
     public static void BinaryInsertion(Comparable[] a) {
+        int n = a.length;
+        for (int i = 1; i < n; i++) {
+            int low = 0, high = i;
+            Comparable temp = a[i]; // 要插入的值
+
+//            二分查找过程，找到合适的插入位置，
+//            最后low==high
+            while (low<high){
+                int mid = (low+high)/2;
+                if (less(temp,a[mid])){
+                    high = mid;
+                }else {
+                    low = mid+1;
+                }
+            }
+
+//          low(high)就是该元素应该的位置，
+//            逐渐右移腾出位置
+            for (int j =i; j>low;j--){
+                a[j] = a[j-1];
+            }
+            a[low] = temp;
+        }
 
     }
 
@@ -196,11 +213,15 @@ public class Insertion {
         Integer[] a = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
         String[] s = {"ab", "gey", "China", "USA", "Guandong", "Jiangsu", "Shenzhen", "hello"};
 
-        InsertionX(a);
-        show(a);
-        System.out.println();
+//        InsertionX(a);
+//        show(a);
+//        System.out.println();
         InsertionXWithoutSentinel(s);
         show(s);
+        System.out.println("binary");
+        BinaryInsertion(a);
+        show(a);
+        System.out.println();
     }
 
 
