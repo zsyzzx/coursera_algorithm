@@ -19,17 +19,14 @@ public class learnSort {
         Stopwatch timer = new Stopwatch();
         if (alg.equals("Insertion")) {
             Insertion.sort(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("InsertionX")) {
             Insertion.InsertionX(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("BinaryInsertion")) {
             Insertion.BinaryInsertion(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("Insertion1")){
@@ -38,22 +35,18 @@ public class learnSort {
         }
         if (alg.equals("Shell")) {
             Shell.sort(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("Selection")) {
             Selection.sort(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("Quick")) {
             Selection.sort(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
         if (alg.equals("Merge")) {
             Selection.sort(a);
-//            System.out.println(alg + ":success");
             success[alg_sequence] = true;
         }
 

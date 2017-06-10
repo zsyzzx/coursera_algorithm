@@ -113,7 +113,7 @@ public class Insertion {
         }
 
     }
-
+//   比有哨兵的排序算法快?
     public static void InsertionXWithoutSentinel(Comparable[] a) {
         int n = a.length;
         for (int i = 2; i < n; i++) {
