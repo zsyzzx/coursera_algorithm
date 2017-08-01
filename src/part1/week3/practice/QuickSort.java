@@ -3,6 +3,7 @@ package part1.week3.practice;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -10,7 +11,6 @@ import java.util.Comparator;
  * Created by seven on 2017/6/7.
  */
 
-// todo 添加注释，做笔记
 public class QuickSort {
 
     private QuickSort() {
@@ -21,13 +21,15 @@ public class QuickSort {
         int i = lo, j = hi + 1;
         Comparable v = a[lo];
         while (true) {
+//            a[i] < v 符合要求，直到找到a[i]>v的点，或者到达边界
             while (less(a[++i], v)) if (i == hi) break;
+//            a[j]>v 符合要求，直到找到a[j]<v的点停止，或者到边界
             while (less(v, a[--j])) if (j == lo) break;
             if (i >= j) break;
             exchange(a, i, j);
         }
 //        exchange(a,i,lo);
-        exchange(a, j, lo);    //j与i有区别么
+        exchange(a, j, lo);    //j与i有区别么,j保证了最小的值
 //        保证交换的两个元素符合分区规定(分界点)，即a[j]< a[low]
 //        而 a[i] >a{low}
         return j;
@@ -71,12 +73,15 @@ public class QuickSort {
         int lt = lo, i = lo + 1, gt = hi;
         Comparable v = a[lo];
         while (i <= gt) {
-            int cmp = v.compareTo(a[i]);
-            if (cmp > 0) exchange(a, i++, lt++);
-            else if (cmp < 0) exchange(a, i, gt--);
-//            int cmp = a[i].compareTo(v);
-//            if (cmp < 0) exchange(a, i++, lt++);
-//            else if (cmp > 0) exchange(a, i, gt--);
+//            int cmp = v.compareTo(a[i]);
+//            if (cmp > 0) exchange(a, i++, lt++);
+//            else if (cmp < 0) exchange(a, i, gt--);
+//            else i++;
+
+//            上下写法一样
+            int cmp = a[i].compareTo(v);
+            if (cmp < 0) exchange(a, i++, lt++);
+            else if (cmp > 0) exchange(a, i, gt--);
             else i++;
         }
         // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
@@ -96,11 +101,13 @@ public class QuickSort {
         StdRandom.shuffle(a);
         int low = 0, high = a.length - 1;
         while (high > low) {
+//            i处于正确的位置，比较i与k的大小，确定搜索范围
             int i = partition(a, low, high);
             if (i > k) high = i - 1;
             else if (i < k) low = i + 1;
             else return a[i];
         }
+//        high == low 返回最后的点
         return a[low];
     }
 
@@ -134,7 +141,6 @@ public class QuickSort {
      * 使用插入排序等
      * 选择合适的点: 中位数3 median-of-3 partitioning
      *
-     * @param a
      */
     private static void QuickX(Comparable[] a, int low, int high) {
         int n = high - low + 1;
@@ -157,27 +163,45 @@ public class QuickSort {
             exchange(a, low, ninther);
         }
 
+//        预处理中已经把轴点放在low位置上
         int i = low, j = high + 1;
         int p = low, q = high + 1;
         Comparable v = a[low];
 
-//        普通快排，需要特别处理相等的元素
-//        将相等的key分别放在两边，
-//        排序完成后，再将相等的key放在相应的位置
+
 
         while (true) {
+            //        普通快排，但需要特别处理相等的元素来减少重复比较
+            /*
+            * 内部排序的处理过程:
+            * 找到a[i]>v,a[j]<v情况
+            * 判断边界点(i==j,i>=j)(注意与轴点相等的情况)
+            * 先处理i,j元素，然后将相等的元素放在区间中(更新p,q)
+            * 将轴点和其相等放在相应的位置
+            * 将剩余的不相等的数组，分别排序，重复以上步骤，一直到有序
+            * */
+
+//            a[i]<v
             while (less(a[++i], v))
                 if (i == high) break;
+//            a[j]>v
             while (less(v, a[--j]))
                 if (j == low) break;
+
+//          边界:i,j指向同一个值，a[i]是否在正确的位置？
             if (i == j && eq(v, a[i]))
                 exchange(a, ++p, i);
+
+//            边界:排序完成
             if (i >= j) break;
 
+//            交换之前 a[i]>v,a[j]<v
             exchange(a, i, j);
+//            更新值相等的区间:更新p,q
             if (eq(v, a[i])) exchange(a, i, ++p);
             if (eq(v, a[j])) exchange(a, j, --q);
         }
+
         i = j + 1;
         for (int k = low; k <= p; k++) {
             exchange(a, k, j--);
@@ -189,47 +213,64 @@ public class QuickSort {
         QuickX(a, i, high);
     }
 
-    public static void DualPivot(Comparable[] a){
-        DualPivot(a,0,a.length-1);
+    public static void DualPivot(Comparable[] a) {
+        DualPivot(a, 0, a.length - 1);
     }
 
     /*
     * 双轴快排，两个轴点，分别快排*/
+    /*
+    * 排序算法：
+    * (a[i]<a[lo])  a[lt]与a[i]交换 i\lt +1
+    * (a[i]>a[hi])   a[gt]与a[i] 交换  gt-1
+    * 其他情况       i+1
+    *
+    * 轴点排序完成后，将轴点放在合适的位置
+    * lt,gt代表排序完成后，不同区间的分界点
+    *
+    * 将三个区域分别重新排序
+    * */
     private static void DualPivot(Comparable[] a, int lo, int hi) {
-        if (hi<=lo) return;
+        if (hi <= lo) return;
 
-        if (less(a[hi],a[lo])) exchange(a,lo,hi);
+//        两个边界点分别为轴，保证轴点有序
+        if (less(a[hi], a[lo])) exchange(a, lo, hi);
 
-        int lt = lo+1, gt = hi-1;
+        int lt = lo + 1, gt = hi - 1;
 
-        int i = lo+1;
-        while (i<= gt){
-            if(less(a[i],a[lo])) exchange(a,i++,lt++);
-            else if (less(a[hi],a[i])) exchange(a,i,gt--);
+        int i = lo + 1;
+        while (i <= gt) {
+            if (less(a[i], a[lo])) exchange(a, i++, lt++);
+            else if (less(a[hi], a[i])) exchange(a, i, gt--);
             else i++;
         }
-        exchange(a,lo,--lt);
-        exchange(a,hi,++gt);
+//         轴点放在合适的位置
+        exchange(a, lo, --lt);
+        exchange(a, hi, ++gt);
 
-        DualPivot(a,lo,lt);
-        if(less(a[lt],a[gt])) DualPivot(a,lt+1,gt-1);
-        DualPivot(a,hi,gt);
+        DualPivot(a, lo, lt);
+//        （中间数组）当两个轴点不相等时，需要排序
+        if (less(a[lt], a[gt])) DualPivot(a, lt + 1, gt - 1);
+        DualPivot(a, hi, gt);
 
     }
 
 
     public static void main(String[] args) {
-        Integer[] a = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
-//        Integer[] a1 = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
-//        String[] s = {"ab", "gey", "China", "USA", "Guandong", "Jiangsu", "Shenzhen", "hello"};
+        Integer[] a = {12, 46, 234, 21, 76, 54, 3, 23, 125, 76, 65};
+        Integer[] a1 = {234, 46, 12, 21, 76, 54, 3, 23, 125, 76, 65};
+        String[] s = {"ab", "gey", "China", "USA", "Guandong", "Jiangsu", "Shenzhen", "hello"};
+        Integer[] test = {5,5,5};
 //        sort(a);
 //        System.out.println(select(a, 3));
 //        show(a);
-        DualPivot(a);
-        show(a);
+//        DualPivot(a);
+//        show(a);
 //        System.out.println("\nquick");
 //        Quick3Way(a1);
 //        show(a1);
+//        Quick3Way(s);
+//        show(s);
 //        sort(s);
 //        show(s);
 //        Double[] a = new Double[100];
@@ -240,7 +281,10 @@ public class QuickSort {
 //        QuickX(a);
 //        System.out.println("排序后=====");
 //        show(a);
-
+//        System.out.println(select(a1,4));
+//        DualPivot(test);
+        DualPivot(s);
+        show(s);
     }
 
     /*
