@@ -5,7 +5,7 @@
 ## Part1
 - [ ] sort
     - [x] quick: 差阅读笔记和注释
-    - [ ] merge
+    - [x] merge
 - [ ] search
 
 ## Part2
